@@ -29,42 +29,77 @@ Vcc::Vcc( const float correction )
 }
 
 #if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-#define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
+  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
+  #define _IVREF 1.1
+  #define _ADCMAXRES 1024.0
 #elif defined (__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-#define ADMUX_VCCWRT1V1 (_BV(MUX5) | _BV(MUX0))
+  #define ADMUX_VCCWRT1V1 (_BV(MUX5) | _BV(MUX0))
+  #define _IVREF 1.1
+  #define _ADCMAXRES 1024.0
 #elif defined (__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
-#define ADMUX_VCCWRT1V1 (_BV(MUX3) | _BV(MUX2))
-#else
-#define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
+  #define ADMUX_VCCWRT1V1 (_BV(MUX3) | _BV(MUX2))
+  #define _IVREF 1.1
+  #define _ADCMAXRES 1024.0
+#elif defined(__LGT8FX8P__)
+  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX0))
+  #define _IVREF 1.024
+  #define _ADCMAXRES 4096.0
+#elif defined(__LGT8FX8E__)
+  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX0))
+  #define _IVREF 1.25
+  #define _ADCMAXRES 4096.0
+#else // defined(__AVR_ATmega328P__)
+  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
 #endif  
+
+uint16_t adcRead_(void){
+  ADCSRA |= _BV(ADSC);
+  while (bit_is_set(ADCSRA, ADSC));
+  return ADC;
+}
 
 float Vcc::Read_Volts(void)
 {
-  // Read 1.1V reference against AVcc
+  analogReference(DEFAULT);    // Set AD reference to VCC
+#if defined(__LGT8FX8P__)
+  ADCSRD |= _BV(BGEN);         // IVSEL enable
+#endif
+  // Read 1.1V/1.024V/1.25V reference against AVcc
   // set the reference to Vcc and the measurement to the internal 1.1V reference
   if (ADMUX != ADMUX_VCCWRT1V1)
   {
     ADMUX = ADMUX_VCCWRT1V1;
-
-    // Bandgap reference start-up time: max 70us
-    // Wait for Vref to settle.
+    // Wait for Vref to settle. Bandgap reference start-up time: max 70us
     delayMicroseconds(350); 
   }
+
+  uint16_t pVal;
+
+#if defined(__LGT8FX8P__)
+  uint16_t nVal;
+  ADCSRC |=  _BV(SPN);
+  nVal = adcRead_();
+  ADCSRC &= ~_BV(SPN);
+#endif
   
-  // Start conversion and wait for it to finish.
-  ADCSRA |= _BV(ADSC);
-  while (bit_is_set(ADCSRA,ADSC)) {};
-    
-  // Result is now stored in ADC.
+  pVal = adcRead_();
+
+#if defined(__LGT8FX8P__)
+  pVal = (pVal + nVal) >> 1;
+#endif
+
+// Logicgreen gain-error correction
+#if defined(__LGT8FX8E__)
+  pVal -= (pVal >> 5);
+#elif defined(__LGT8FX8P__)
+  pVal -= (pVal >> 7);
+#endif
   
   // Calculate Vcc (in V)
-  float vcc = 1.1*1024.0 / ADC;
-
-  // Apply compensation
-  vcc *= m_correction;
+  float vcc = _mcorrection * _IVREF * _ADCMAXRES / pVal;
 
   return vcc;
-}
+} // end Read_Volts
 
 float Vcc::Read_Perc(const float range_min, const float range_max, const boolean clip)
 {
