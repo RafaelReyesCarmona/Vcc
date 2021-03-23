@@ -96,7 +96,7 @@ float Vcc::Read_Volts(void)
 #endif
   
   // Calculate Vcc (in V)
-  float vcc = _mcorrection * _IVREF * _ADCMAXRES / pVal;
+  float vcc = m_correction * _IVREF * _ADCMAXRES / pVal;
 
   return vcc;
 } // end Read_Volts
