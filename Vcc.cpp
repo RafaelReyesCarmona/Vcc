@@ -45,11 +45,13 @@ Vcc::Vcc( const float correction )
   #define _IVREF 1.024
   #define _ADCMAXRES 4096.0
 #elif defined(__LGT8FX8E__)
-  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX0))
+  #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
   #define _IVREF 1.25
   #define _ADCMAXRES 4096.0
 #else // defined(__AVR_ATmega328P__)
   #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
+  #define _IVREF 1.1
+  #define _ADCMAXRES 1024.0
 #endif  
 
 uint16_t adcRead_(void){
