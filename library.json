@@ -1,0 +1,32 @@
+{
+	"name": "Vcc",
+	"version": "0.1",
+	"keywords": "Vcc",
+	"description": "Arduino library for measuring VCC supply voltage without external components.",
+	"authors":
+	[
+		{
+		"name": "Rafael Reyes Carmona",
+		"email": "rafael.reyes.carmona@gmail.com",
+		"url": "https://github.com/RafaelReyesCarmona/",
+		"maintainer": true
+		},
+		{
+		"name": "Ivo Pullens",
+		"url": "https://github.com/Yveaux/Arduino_Vcc"
+		}
+	],
+	"repository":
+	{
+		"type": "git",
+		"url": "https://github.com/RafaelReyesCarmona/Vcc.git"
+	},
+	"frameworks": [
+	  "arduino"
+	],
+	"platforms": [
+	  "atmelavr",
+	  "lgt8f",
+	  "teensy"
+	]
+}

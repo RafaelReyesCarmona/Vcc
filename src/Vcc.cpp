@@ -1,4 +1,32 @@
 /*
+Vcc.cpp - Arduino library for measuring VCC supply voltage without external components.
+v0.1
+
+Created by Ivo Pullens, Emmission, 2014
+This version - Copyright © 2022 Francisco Rafael Reyes Carmona.
+All rights reserved.
+
+rafael.reyes.carmona@gmail.com
+
+
+  This file is part of Vcc Library.
+
+  Vcc Library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Vcc Library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Vcc Library.  If not, see <https://www.gnu.org/licenses/>.
+
+*/
+
+/*
   Vcc - A supply voltage measuring library for Arduino
 
   Created by Ivo Pullens, Emmission, 2014
@@ -54,12 +82,6 @@ Vcc::Vcc( const float correction )
   #define _ADCMAXRES 1024.0
 #endif  
 
-uint16_t adcRead_(void){
-  ADCSRA |= _BV(ADSC);
-  while (bit_is_set(ADCSRA, ADSC));
-  return ADC;
-}
-
 float Vcc::Read_Volts(void)
 {
   analogReference(DEFAULT);    // Set AD reference to VCC
@@ -75,30 +97,14 @@ float Vcc::Read_Volts(void)
     delayMicroseconds(350); 
   }
 
-  uint16_t pVal;
-
-#if defined(__LGT8FX8P__)
-  uint16_t nVal;
-  ADCSRC |=  _BV(SPN);
-  nVal = adcRead_();
-  ADCSRC &= ~_BV(SPN);
-#endif
+  static EMA<2> EMA_filter;
+  uint16_t pVal_filtered;
+  uint16_t pVal = adcGet_();
   
-  pVal = adcRead_();
+  pVal_filtered = EMA_filter(pVal);
 
-#if defined(__LGT8FX8P__)
-  pVal = (pVal + nVal) >> 1;
-#endif
-
-// Logicgreen gain-error correction
-#if defined(__LGT8FX8E__)
-  pVal -= (pVal >> 5);
-#elif defined(__LGT8FX8P__)
-  pVal -= (pVal >> 7);
-#endif
-  
   // Calculate Vcc (in V)
-  float vcc = m_correction * _IVREF * _ADCMAXRES / pVal;
+  float vcc = m_correction * _IVREF * _ADCMAXRES / pVal_filtered;
 
   return vcc;
 } // end Read_Volts
