@@ -1,6 +1,6 @@
 /*
 Vcc.cpp - Arduino library for measuring VCC supply voltage without external components.
-v0.1
+v0.1.1
 
 Created by Ivo Pullens, Emmission, 2014
 This version - Copyright © 2022 Francisco Rafael Reyes Carmona.
