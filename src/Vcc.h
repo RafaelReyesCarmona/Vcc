@@ -55,11 +55,8 @@ rafael.reyes.carmona@gmail.com
   #include "WProgram.h"
 #endif
 
-#ifndef VCC_H
-#define VCC_H
-
-#include <EMA.h>
-#include <ADC.h>
+#ifndef Vcc_h
+#define Vcc_h
 
 class Vcc
 {

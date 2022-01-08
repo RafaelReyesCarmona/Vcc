@@ -50,6 +50,8 @@ rafael.reyes.carmona@gmail.com
 */
 
 #include "Vcc.h"
+#include <EMA.h>
+#include <ADC.h>
 
 Vcc::Vcc( const float correction )
   : m_correction(correction)
