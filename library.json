@@ -1,6 +1,6 @@
 {
 	"name": "Vcc",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"keywords": "Vcc",
 	"description": "Arduino library for measuring VCC supply voltage without external components.",
 	"authors":

@@ -2,7 +2,7 @@
 
 # Vcc #
 [![Library: Vcc](https://img.shields.io/badge/Library-Vcc-red?style=for-the-badge&logo=Arduino)](README.md)
-[![Version: v0.1.2](https://img.shields.io/badge/Version-v0.1.2-blue?style=for-the-badge&logo=v)]()
+[![Version: v0.1.3](https://img.shields.io/badge/Version-v0.1.3-blue?style=for-the-badge&logo=v)]()
 
 Arduino library for measuring VCC supply voltage without external components.
 

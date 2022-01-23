@@ -1,6 +1,6 @@
 /*
 Vcc.cpp - Arduino library for measuring VCC supply voltage without external components.
-v0.1.2
+v0.1.3
 
 Created by Ivo Pullens, Emmission, 2014
 This version - Copyright © 2022 Francisco Rafael Reyes Carmona.
@@ -76,6 +76,14 @@ class Vcc
      * @return Current Vcc level, in Volts.
      */
     float Read_Volts(void);
+
+      /**
+     * Retrieve current Vcc level. Asumes that correction factor is 1. 
+     *                             Vcc_measured = Vcc_reported.
+     *
+     * @return Current Vcc level, in milivolts.
+     */
+    uint16_t Read_Volts_fast(void);
 
     /**
      * Retrieve current Vcc level. The total voltage range shall be passed
