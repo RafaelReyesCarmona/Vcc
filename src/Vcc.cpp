@@ -1,6 +1,6 @@
 /*
 Vcc.cpp - Arduino library for measuring VCC supply voltage without external components.
-v0.1.3
+v0.1.4
 
 Created by Ivo Pullens, Emmission, 2014
 This version - Copyright © 2022 Francisco Rafael Reyes Carmona.
@@ -88,12 +88,14 @@ Vcc::Vcc( const float correction )
   #define _IVREF 1250L
   #define _ADCMAXRES 4096.0
   #define _ADCMAXRES 4096L
-#else // defined(__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__)
   #define ADMUX_VCCWRT1V1 (_BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1))
   #define _IVREF 1.1
   #define _IVREF_FAST 1100L
   #define _ADCMAXRES 1024.0
   #define _ADCMAXRES_FAST 1024L
+#else
+  #error Platform not supported.
 #endif  
 
 void select_vcc(void) {

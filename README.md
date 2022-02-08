@@ -2,7 +2,7 @@
 
 # Vcc #
 [![Library: Vcc](https://img.shields.io/badge/Library-Vcc-red?style=for-the-badge&logo=Arduino)](README.md)
-[![Version: v0.1.3](https://img.shields.io/badge/Version-v0.1.3-blue?style=for-the-badge&logo=v)]()
+[![Version: v0.1.4](https://img.shields.io/badge/Version-v0.1.4-blue?style=for-the-badge&logo=v)]()
 
 Arduino library for measuring VCC supply voltage without external components.
 
@@ -20,13 +20,13 @@ This library need EMA.h library (https://github.com/RafaelReyesCarmona/EMA) and 
 
 ## License ##
 
-This file is part of ACS712_Hall Library.
+This file is part of Vcc Library.
 
-ACS712_Hall Library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+Vcc Library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-ACS712_Hall Library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+Vcc Library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with ACS712_Hall Library.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with Vcc Library.  If not, see <https://www.gnu.org/licenses/>.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
