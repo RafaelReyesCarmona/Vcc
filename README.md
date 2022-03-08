@@ -2,7 +2,7 @@
 
 # Vcc #
 [![Library: Vcc](https://img.shields.io/badge/Library-Vcc-red?style=for-the-badge&logo=Arduino)](README.md)
-[![Version: v0.1.4](https://img.shields.io/badge/Version-v0.1.4-blue?style=for-the-badge&logo=v)]()
+[![Version: v0.1.5](https://img.shields.io/badge/Version-v0.1.5-blue?style=for-the-badge&logo=v)]()
 
 Arduino library for measuring VCC supply voltage without external components.
 
@@ -17,6 +17,14 @@ Unfortunately it doesn't work on Logicgreen LGT8F328D. This because if ADMUX sel
 
 ## Installation ##
 This library need EMA.h library (https://github.com/RafaelReyesCarmona/EMA) and ADC.h library (https://github.com/RafaelReyesCarmona/EMA). 
+
+## Changelog
+
+# 0.1.5
+    * Fixed duplicity on defines sentences.
+
+# 0.1.4
+    * Added function 'Read_Volts_fast'.
 
 ## License ##
 
