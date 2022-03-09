@@ -20,10 +20,10 @@ This library need EMA.h library (https://github.com/RafaelReyesCarmona/EMA) and 
 
 ## Changelog
 
-# 0.1.5
+### 0.1.5
     * Fixed duplicity on defines sentences.
 
-# 0.1.4
+### 0.1.4
     * Added function 'Read_Volts_fast'.
 
 ## License ##
